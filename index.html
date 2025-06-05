@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futsorteo - Sorteo de Equipos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor-principal">
+    <!-- Panel izquierdo -->
+    <div class="panel-izquierdo">
+        <h1>Generador de Equipos</h1>
+        <p>Crea tus <strong>equipos al azar</strong> a partir de una lista de nombres para tu fútbol 5. Puedes seleccionar <strong>arqueros</strong> si los hay.</p>
+        <div class="area-ingreso">
+            <h2>Ingresa los participantes</h2>
+            <p>Presiona en ⚽ para asignar arqueros 🧤 (máx 2)</p>
+             <div class="contenedor-textarea">
+                <textarea id="areaJugadores" placeholder="Cada participante debe estar en una nueva línea..."></textarea>
+                <div id="contador" class="contador-jugadores">0</div>
+            </div>
+            <ul id="lista-jugadores" class="lista-jugadores"></ul>
+            <div class="botones-accion">
+            <button id="botonLimpiar" class="btn btn-limpiar">Limpiar</button>
+            <button id="botonSortear" class="btn btn-sortear">Sortear</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="panel-derecho">
+        <h2>Equipos Sorteados</h2>
+        <div class="info-partido">
+            <p><span class="icono">📍</span> <strong>Lugar del partido:</strong> <span class="editar" contenteditable="true"></span></p>
+            <p><span class="icono">📅</span> <strong>Día del partido:</strong> <span class="editar" contenteditable="true"></span></p>
+            <p><span class="icono">🕒</span> <strong>Horario del partido:</strong> <span class="editar" contenteditable="true"></span></p>
+        </div>
+
+        <!-- Puedes colocar esto en tu archivo index.html -->
+
+
+        <div class="campo-juego">
+            <div class="equipo" id="equipo-blanco">
+                <h3>Equipo Blanco</h3>
+                <ul id="lista-blanco"></ul>
+            </div>
+            <div class="equipo" id="equipo-negro">
+                <h3>Equipo Negro</h3>
+                <ul id="lista-negro"></ul>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<footer class="footer-ocho">
+  <div class="footer-content">
+    <span class="footer-text">Diseñado por el <em>Ocho</em></span>
+    <div class="footer-icons">
+      <a href="https://www.instagram.com/ux.ocho/" target="_blank" aria-label="Instagram">
+        <img src="./instagram-svgrepo-com.svg" alt="Instagram" />
+      </a>
+      <a href="https://behance.net/ochoux" target="_blank" aria-label="Behance">
+        <img src="./behance-svgrepo-com.svg" alt="Behance" />
+      </a>
+      <a href="https://github.com/luki8a" target="_blank" aria-label="GitHub">
+        <img src="./github-svgrepo-com.svg" alt="GitHub" />
+      </a>
+      <a href="https://www.linkedin.com/in/ochoux/" target="_blank" aria-label="LinkedIn">
+        <img src="./linkedin-161-svgrepo-com.svg" alt="LinkedIn" />
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal personalizado de alerta -->
+<div id="modal-alerta" class="modal-alerta-oculto">
+  <div class="modal-alerta-contenido">
+    <button class="modal-alerta-cerrar" onclick="cerrarModalAlerta()">&times;</button>
+    <div id="modal-alerta-mensaje"></div>
+    <button class="modal-alerta-aceptar" onclick="cerrarModalAlerta()">Aceptar</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
