@@ -11,12 +11,12 @@
     <!-- Panel izquierdo -->
     <div class="panel-izquierdo">
         <h1>Generador de Equipos</h1>
-        <p>Crea tus <strong>equipos al azar</strong> a partir de una lista de nombres para tu fútbol 5. Puedes seleccionar <strong>arqueros</strong> si los hay.</p>
+        <p>Crea tus <strong>equipos al azar</strong> con exactamente 10 jugadores para tu fútbol 5. Puedes seleccionar <strong>arqueros</strong> si los hay.</p>
         <div class="area-ingreso">
             <h2>Ingresa los participantes</h2>
             <p>Presiona en ⚽ para asignar arqueros 🧤 (máx 2)</p>
              <div class="contenedor-textarea">
-                <textarea id="areaJugadores" placeholder="Cada participante debe estar en una nueva línea..."></textarea>
+                <textarea id="areaJugadores" placeholder="Escribe exactamente 10 jugadores, cada uno en una nueva línea..."></textarea>
                 <div id="contador" class="contador-jugadores">0</div>
             </div>
             <ul id="lista-jugadores" class="lista-jugadores"></ul>
@@ -50,6 +50,50 @@
             </div>
         </div>
         
+        <!-- Sección de resultado del partido -->
+        <div id="seccion-resultado" class="seccion-resultado" style="display: none;">
+            <h3>🏆 Resultado del Partido</h3>
+            <div class="opciones-resultado">
+                <button id="btnGanoBlanco" class="btn-resultado btn-gano-blanco">
+                    🏆 Ganó Equipo Blanco
+                </button>
+                <button id="btnEmpate" class="btn-resultado btn-empate">
+                    🤝 Empate
+                </button>
+                <button id="btnGanoNegro" class="btn-resultado btn-gano-negro">
+                    🏆 Ganó Equipo Negro
+                </button>
+            </div>
+            <div id="resultado-seleccionado" class="resultado-seleccionado" style="display: none;">
+                <p>Resultado: <span id="texto-resultado"></span></p>
+                <button id="btnCambiarResultado" class="btn-cambiar">Cambiar resultado</button>
+            </div>
+        </div>
+        
+        <!-- Botón para guardar en historial -->
+        <div class="contenedor-guardar">
+            <button id="botonGuardar" class="btn btn-guardar" disabled>💾 Guardar en Historial</button>
+            <button id="botonVerHistorial" class="btn btn-ver-historial">📋 Ver Historial</button>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Modal del historial -->
+<div id="modal-historial" class="modal-historial-oculto">
+    <div class="modal-historial-contenido">
+        <div class="modal-historial-header">
+            <h3>📋 Historial de Equipos</h3>
+            <button class="modal-historial-cerrar" onclick="cerrarModalHistorial()">&times;</button>
+        </div>
+        <div class="modal-historial-body">
+            <div class="controles-historial">
+                <button id="botonLimpiarHistorial" class="btn btn-limpiar-historial">🗑️ Limpiar Historial</button>
+            </div>
+            <div id="lista-historial" class="lista-historial">
+                <p class="historial-vacio">No hay equipos guardados en el historial</p>
+            </div>
+        </div>
     </div>
 </div>
 
