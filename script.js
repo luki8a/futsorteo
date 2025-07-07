@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     cancha.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             }
-        }, 1500); // 1.5 segundos de loading para crear más suspenso
+        }, 1000); // 1.5 segundos de loading para crear más suspenso
     });
 
     // Funciones del historial
