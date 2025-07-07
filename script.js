@@ -233,69 +233,85 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Mezclar aleatoriamente el array de jugadores
-        for (let i = jugadores.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [jugadores[i], jugadores[j]] = [jugadores[j], jugadores[i]];
-        }
-
-        const arqueros = jugadores.filter(j => j.arquero);
-        const jugadoresDeCampo = jugadores.filter(j => !j.arquero);
-
-        let equipoBlanco = [];
-        let equipoNegro = [];
-
-        // Asignar arqueros
-        if (arqueros.length > 0) {
-            equipoBlanco.push(arqueros.shift().nombre);
-        }
-        if (arqueros.length > 0) {
-            equipoNegro.push(arqueros.shift().nombre);
-        }
-
-        // Juntar el resto de arqueros (si hay más de 2) con los jugadores de campo
-        const restoJugadores = jugadoresDeCampo.map(j => j.nombre).concat(arqueros.map(j => j.nombre));
-
-        // Repartir jugadores de campo
-        let turnoBlanco = true;
-        while (restoJugadores.length > 0) {
-            if (turnoBlanco && equipoBlanco.length < 5) {
-                equipoBlanco.push(restoJugadores.shift());
-            } else if (!turnoBlanco && equipoNegro.length < 5) {
-                equipoNegro.push(restoJugadores.shift());
-            }
-            else if (equipoBlanco.length >= 5) {
-                equipoNegro.push(restoJugadores.shift());
-            } else if (equipoNegro.length >= 5) {
-                equipoBlanco.push(restoJugadores.shift());
-            }
-            turnoBlanco = !turnoBlanco;
-        }
-
-        // Mostrar resultados
-        mostrarEquipo(listaBlanco, equipoBlanco);
-        mostrarEquipo(listaNegro, equipoNegro);
+        // Mostrar loading overlay
+        const loadingOverlay = document.getElementById('loading-overlay');
+        loadingOverlay.classList.add('show');
         
-        // Guardar el último sorteo para poder agregarlo al historial
-        ultimoSorteo = {
-            equipoBlanco: [...equipoBlanco],
-            equipoNegro: [...equipoNegro],
-            fecha: new Date()
-        };
-        
-        // No mostrar sección de resultado aquí, se manejará desde el historial
-        resultadoPartido = null;
-        
-        // Habilitar el botón de guardar
-        botonGuardar.disabled = false;
+        // Deshabilitar el botón temporalmente
+        botonSortear.disabled = true;
 
-        // Scroll automático solo en mobile
-        if (window.innerWidth <= 800) {
-            const cancha = document.querySelector('.campo-juego');
-            if (cancha) {
-                cancha.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Ejecutar el sorteo después de 1.5 segundos para crear suspenso
+        setTimeout(() => {
+            // Mezclar aleatoriamente el array de jugadores
+            for (let i = jugadores.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [jugadores[i], jugadores[j]] = [jugadores[j], jugadores[i]];
             }
-        }
+
+            const arqueros = jugadores.filter(j => j.arquero);
+            const jugadoresDeCampo = jugadores.filter(j => !j.arquero);
+
+            let equipoBlanco = [];
+            let equipoNegro = [];
+
+            // Asignar arqueros
+            if (arqueros.length > 0) {
+                equipoBlanco.push(arqueros.shift().nombre);
+            }
+            if (arqueros.length > 0) {
+                equipoNegro.push(arqueros.shift().nombre);
+            }
+
+            // Juntar el resto de arqueros (si hay más de 2) con los jugadores de campo
+            const restoJugadores = jugadoresDeCampo.map(j => j.nombre).concat(arqueros.map(j => j.nombre));
+
+            // Repartir jugadores de campo
+            let turnoBlanco = true;
+            while (restoJugadores.length > 0) {
+                if (turnoBlanco && equipoBlanco.length < 5) {
+                    equipoBlanco.push(restoJugadores.shift());
+                } else if (!turnoBlanco && equipoNegro.length < 5) {
+                    equipoNegro.push(restoJugadores.shift());
+                }
+                else if (equipoBlanco.length >= 5) {
+                    equipoNegro.push(restoJugadores.shift());
+                } else if (equipoNegro.length >= 5) {
+                    equipoBlanco.push(restoJugadores.shift());
+                }
+                turnoBlanco = !turnoBlanco;
+            }
+
+            // Mostrar resultados
+            mostrarEquipo(listaBlanco, equipoBlanco);
+            mostrarEquipo(listaNegro, equipoNegro);
+            
+            // Guardar el último sorteo para poder agregarlo al historial
+            ultimoSorteo = {
+                equipoBlanco: [...equipoBlanco],
+                equipoNegro: [...equipoNegro],
+                fecha: new Date()
+            };
+            
+            // No mostrar sección de resultado aquí, se manejará desde el historial
+            resultadoPartido = null;
+            
+            // Habilitar el botón de guardar
+            botonGuardar.disabled = false;
+
+            // Ocultar loading overlay
+            loadingOverlay.classList.remove('show');
+            
+            // Rehabilitar el botón de sortear
+            botonSortear.disabled = false;
+
+            // Scroll automático solo en mobile
+            if (window.innerWidth <= 800) {
+                const cancha = document.querySelector('.campo-juego');
+                if (cancha) {
+                    cancha.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }, 1500); // 1.5 segundos de loading para crear más suspenso
     });
 
     // Funciones del historial
